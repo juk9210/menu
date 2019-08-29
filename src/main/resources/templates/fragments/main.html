@@ -5,10 +5,13 @@
 
     | &nbsp;
 
-    <a th:href="@{/sign_in}">Sign in</a>
+    <a  th:href="@{/menu}">Menu</a>
+
     | &nbsp;
 
-    <a th:if="${#request.userPrincipal != null}" th:href="@{/add_user}">Add user</a>
+    <a th:if="${#request.userPrincipal != ROLE_ADMIN}" th:href="@{/add_user}">Add user</a>
+
+    <a th:if="${#request.userPrincipal == null}" th:href="@{/sign_in}" >Sign in</a>
 
     <a th:if="${#request.userPrincipal != null}" > | &nbsp;</a>
 

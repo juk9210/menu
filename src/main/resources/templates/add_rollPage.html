@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add roll</title>
+</head>
+<body>
+<div>
+    <h2>New roll</h2>
+    <div >
+        <div >
+            <form action="#" th:action="@{/add_roll}" th:object="${rollAdd}" method="post">
+                <div>
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+                    <div>
+                        <label for="typeOfRoll">Type of roll</label>
+                        <input type="text" th:field="*{typeOfRoll}" id="typeOfRoll" placeholder="type of roll">
+                        <span th:if="${#fields.hasErrors('typeOfRoll')}" th:errors="*typeOfRoll}"></span>
+                    </div>
+                    <div>
+                        <label for="weight">Weight</label>
+                        <input type="text" th:field="*{weight}" id="weight" placeholder="weight">
+                        <span th:if="${#fields.hasErrors('weight')}" th:errors="{weight}"></span>
+                    </div>
+                    <div>
+                        <label for="calorieContent">Calorie content</label>
+                        <input type="text" th:field="*{calorieContent}" id="calorieContent" placeholder="calorie content">
+                        <span th:if="${#fields.hasErrors('calorieContent')}" th:errors="{calorieContent}"></span>
+                    </div>
+                    <div>
+                        <label for="composition">Composition</label>
+                        <input type="text" th:field="*{composition}" id="composition" placeholder="composition">
+                        <span th:if="${#fields.hasErrors('composition')}" th:errors="composition}"></span>
+                    </div>
+                    <div>
+                        <label for="price">Price</label>
+                        <input type="text" th:field="*{price}" id="price" placeholder="price">
+                        <span th:if="${#fields.hasErrors('price')}" th:errors="price}"></span>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="submit" value="Add roll">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

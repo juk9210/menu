@@ -31,7 +31,7 @@ public class Roll implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "composition_id", nullable = false)
-    private Composition composition;
+    private List<Composition> composition;
 
     @Column(length = 3)
     private Integer price;

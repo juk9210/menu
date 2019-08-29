@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu</title>
+</head>
+<body>
+<th:block th:include="/fragments/main"></th:block>
+<th:block th:include="/fragments/filter"></th:block>
+<div>
+    <div>
+        <h2 th:if="${rolls eq null or rolls.empty}">There are no more rolls in the menu!</h2>
+        <div th:if="${rolls ne null}">
+            <table width="100%" border="1" cellpadding="4" cellspacing="0">
+                <caption>Rolls</caption>
+                <thead>
+                <tr>
+                    <th>name</th>
+                    <th>type of roll</th>
+                    <th>weight</th>
+                    <th>calorie content</th>
+                    <th>composition</th>
+                    <th>price</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${rolls}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.typeOfRoll}"></td>
+                    <td th:text="${item.weight}"></td>
+                    <td th:text="${item.calorieContent}"></td>
+                    <td th:text="${item.composition}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${item.id})}">Edit</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${item.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a th:if="${#request.userPrincipal != null}" href="/new_roll">Add roll</a></p>
+    </div>
+</div>
+
+
+</body>
+
+</html>
