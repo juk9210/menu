@@ -1,0 +1,33 @@
+h1{
+padding: 10px;
+ margin: 0;
+color:#8A0808;
+margin-left:100px;
+}
+h2{
+  font-size:130%
+  ;color:#FBFBEF;
+  font-weight:bolder;
+}
+a{
+color:#FFFFFF;
+font-weight:bolder;
+font-family:"Georgia",serif;
+}
+table{
+   text-align:center;
+   width:80%;
+   border:2px solid #FACC2E;
+   color: #FACC2E;
+   font-weight:bolder;
+   font-family:"Georgia",serif;
+   background:#000000;
+   border-radius:5px;
+   margin:auto;
+}
+label{
+background-color: #01DF01;
+border: 1px solid #000000;
+padding:4px;
+border-radius:10px"
+}

@@ -30,11 +30,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         //доступно для всех
-        http.authorizeRequests().antMatchers( "/", "/sign_in", "/sign_out" ).permitAll();
+        http.authorizeRequests().antMatchers( "/", "welcome","/sign_in","/menu","/menu/sort/by_type",
+                "/menu/sort/by_weight/up","/menu/sort/by_weight/down","/menu/sort/by_price/up",
+                "/menu/sort/by_price/down").permitAll();
         //доступно для админа и пользователя
-        http.authorizeRequests().antMatchers("/add_user").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/sign_out","/new_roll","/add_roll","/edit/{id}",
+                "/update/{id}","/delete/{id}").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')");
         //доступно только для админа
-        http.authorizeRequests().antMatchers( "/admin" ).access( "hasRole('ROLE_ADMIN')" );
+        http.authorizeRequests().antMatchers( "/add_user" ).access( "hasRole('ROLE_ADMIN')" );
         // если нет прав (роли) для доступа к странице
         // будет брошено AccessDeniedException.
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage( "/403" );

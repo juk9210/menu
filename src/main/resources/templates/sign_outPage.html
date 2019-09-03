@@ -2,9 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sign out</title>
+    <link rel="stylesheet" href="main.css">
+    <style type="text/css">
+   body {
+   margin: 0;
+   background:#151515 url(images/roll.jpg);
+   }
+   #header {
+    height: 60px;
+    background: #FACC2E;
+    border-bottom: 2px solid;
+    margin-bottom:5px;
+    text-align:center;
+    font-size:120%;
+   }
+  </style>
 </head>
 
 <body>
+<div id="header"><h1>Menu of rolls</h1></div>
+
 <th:block th:include="/fragments/main"></th:block>
 
 <h1>Sign out successful!</h1>

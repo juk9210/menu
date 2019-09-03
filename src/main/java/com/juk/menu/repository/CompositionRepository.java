@@ -2,9 +2,9 @@ package com.juk.menu.repository;
 
 import com.juk.menu.model.Composition;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+@Repository
 public interface CompositionRepository extends CrudRepository<Composition,Long> {
-//    Optional <Composition>  getCompositionByName(String name);
+
 }

@@ -1,6 +1,8 @@
 package com.juk.menu.controller;
 
+import com.juk.menu.model.Composition;
 import com.juk.menu.model.Roll;
+import com.juk.menu.repository.CompositionRepository;
 import com.juk.menu.repository.RollRepository;
 import com.juk.menu.utils.WebUtils;
 import org.springframework.security.core.Authentication;
@@ -8,20 +10,20 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.beans.Transient;
 import java.security.Principal;
 
 @Controller
 public class MainController {
     private final RollRepository rollRepository;
+    private final CompositionRepository compositionRepository;
 
-    public MainController(RollRepository rollRepository) {
+    public MainController(RollRepository rollRepository, CompositionRepository compositionRepository) {
         this.rollRepository = rollRepository;
+        this.compositionRepository = compositionRepository;
     }
 
     @GetMapping({"/", "welcome"})
@@ -68,12 +70,12 @@ public class MainController {
 
     @GetMapping("/menu")
     public String menuPage(Model model) {
-        model.addAttribute( "rolls", rollRepository.findAll() );
+        model.addAttribute( "rolls", rollRepository.findAll());
         return "menuPage";
     }
 
     @GetMapping("/new_roll")
-    public String showRollForm(Model model) {
+    public String showSignForm(Model model) {
         model.addAttribute( "rollAdd", new Roll() );
         return "add_rollPage";
     }
@@ -85,7 +87,81 @@ public class MainController {
         }
         rollRepository.save( roll );
         Iterable<Roll> rolls = rollRepository.findAll();
-        model.addAttribute( "rolls",rolls );
+        model.addAttribute( "rolls", rolls );
+        return "menuPage";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Roll roll = rollRepository.findById( id )
+                .orElseThrow( () -> new IllegalArgumentException( "Invalid client Id:" + id ) );
+        model.addAttribute( "roll", roll );
+        return "update_rollPage";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateRoll(@PathVariable("id") long id, @Valid Roll roll, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            roll.setId( id );
+            return "update_rollPage";
+        }
+        rollRepository.save( roll );
+        model.addAttribute( "rolls", rollRepository.findAll() );
+        return "menuPage";
+    }
+
+    @Transient
+    @GetMapping("/delete/{id}")
+    public String deleteRoll(@PathVariable("id") long id, Model model) {
+        rollRepository.deleteById( id );
+        return "menuPage";
+    }
+
+        @GetMapping("/comp")
+    public String compPage(Model model) {
+        model.addAttribute( "comps", compositionRepository.findAll() );
+        return "compPage";
+    }
+
+    @GetMapping("/new_comp")
+    public String showCompSignForm(Model model) {
+        model.addAttribute( "compAdd", new Composition() );
+        return "add_compPage";
+    }
+
+    @PostMapping("/add_comp")
+    public String addComp(@Valid Composition composition, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "add_compPage";
+        }
+        compositionRepository.save( composition );
+        Iterable<Composition> comps = compositionRepository.findAll();
+        model.addAttribute( "comps", comps );
+        return "compPage";
+    }
+    @GetMapping("/menu/sort/by_weight/up")
+    public String sortByWeightUpPage(Model model) {
+        model.addAttribute( "rolls", rollRepository.findByOrderByWeightAsc() );
+        return "menuPage";
+    }
+    @GetMapping("/menu/sort/by_weight/down")
+    public String sortByWeightDownPage(Model model) {
+        model.addAttribute( "rolls", rollRepository.findByOrderByWeightDesc() );
+        return "menuPage";
+    }
+    @GetMapping("/menu/sort/by_price/up")
+    public String sortByPriceUpPage(Model model) {
+        model.addAttribute( "rolls", rollRepository.findByOrderByPriceAsc());
+        return "menuPage";
+    }
+    @GetMapping("/menu/sort/by_price/down")
+    public String sortByPriceDownPage(Model model) {
+        model.addAttribute( "rolls", rollRepository.findByOrderByPriceDesc() );
+        return "menuPage";
+    }
+    @GetMapping("/menu/find/by_type")
+    public String sortByTypePage(@RequestParam(value="search",required = true) String query, Model model) {
+        model.addAttribute( "rolls", rollRepository.findByTypeOfRoll( query ));
         return "menuPage";
     }
 }

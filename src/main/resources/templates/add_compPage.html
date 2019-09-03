@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add comp</title>
+</head>
+<body>
+<div>
+    <h2>New comp</h2>
+    <div>
+        <div>
+            <form action="#" th:action="@{/add_comp}" th:object="${compAdd}" method="post">
+                <div>
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" th:field="*{name}" id="name" placeholder="name">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+                    <div>
+                        <label for="roll">roll</label>
+                        <input type="text" th:field="*{roll}" id="roll" placeholder="roll">
+                        <span th:if="${#fields.hasErrors('roll')}" th:errors="*{roll}"></span>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type="submit" value="Add comp">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

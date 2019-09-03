@@ -5,23 +5,25 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
-@Table
+@Table(name = "roll")
 @Data
 @NoArgsConstructor
 public class Roll implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(name = "type_of_roll", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TypeOfRollEnum typeOfRoll;
+
+    @Column
+    private String typeOfRoll;
 
     @Column(length = 3)
     private Integer weight;
@@ -29,9 +31,10 @@ public class Roll implements Serializable {
     @Column(name = "calorie_content", length = 10)
     private Integer calorieContent;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "composition_id", nullable = false)
-    private List<Composition> composition;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roll")
+//    @JoinColumn(name = "composition_name", nullable = false)
+//    @Column
+    private Set<Composition> compositions = new HashSet<>(  );
 
     @Column(length = 3)
     private Integer price;

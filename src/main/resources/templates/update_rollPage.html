@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Add roll</title>
+    <title>Update Roll</title>
     <link rel="stylesheet" href="main.css">
     <style type="text/css">
    body {
@@ -22,10 +22,10 @@
 <div id="header"><h1>Menu of rolls</h1></div>
 <th:block th:include="/fragments/main"></th:block>
 <div>
-    <h2>New roll</h2>
+    <h2>Update roll</h2>
     <div>
         <div>
-            <form action="#" th:action="@{/add_roll}" th:object="${rollAdd}" method="post">
+            <form action="#" th:action="@{/update/{id}(id=${roll.id})}" th:object="${roll}" method="post">
                 <div>
                     <div>
                         <label for="name">Name</label>
@@ -34,34 +34,34 @@
                     </div>
                     <div>
                         <label for="typeOfRoll">Type of roll</label>
-                        <input type="text"  th:field="*{typeOfRoll}" id="typeOfRoll" placeholder="typeOfRoll">
+                        <input type="text" th:field="*{typeOfRoll}" id="typeOfRoll" placeholder="typeOfRoll">
                         <span th:if="${#fields.hasErrors('typeOfRoll')}" th:errors="*{typeOfRoll}"></span>
                     </div>
                     <div>
                         <label for="weight">Weight</label>
-                        <input type="number" step="5" th:field="*{weight}" id="weight" placeholder="weight">
+                        <input type="text" th:field="*{weight}" id="weight" placeholder="weight">
                         <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></span>
                     </div>
                     <div>
                         <label for="calorieContent">Calorie content</label>
-                        <input type="number" step="5" th:field="*{calorieContent}" id="calorieContent" placeholder="calorieContent">
+                        <input type="text" th:field="*{calorieContent}" id="calorieContent" placeholder="calorieContent">
                         <span th:if="${#fields.hasErrors('calorieContent')}" th:errors="*{calorieContent}"></span>
                     </div>
                     <div>
-                        <label for="compositions">Composition</label>
-                        <input type="text" th:field="*{compositions}" id="compositions" placeholder="compositions">
-                        <span th:if="${#fields.hasErrors('compositions')}" th:errors="*{compositions}"></span>
+                        <label for="composition">Composition</label>
+                        <input type="text" th:field="*{composition}" id="composition" placeholder="composition">
+                        <span th:if="${#fields.hasErrors('composition')}" th:errors="*{composition}"></span>
                     </div>
                     <div>
                         <label for="price">Price</label>
-                        <input type="number" step="5" th:field="*{price}" id="price" placeholder="price">
+                        <input type="text" th:field="*{price}" id="price" placeholder="price">
                         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                     </div>
                 </div>
                 <div>
                     <div>
                         <input style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
-                        border-radius:10px"type="submit" value="Add roll">
+                        border-radius:10px" type="submit" value="Update roll">
                     </div>
                 </div>
             </form>

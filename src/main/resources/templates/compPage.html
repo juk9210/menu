@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menu</title>
+</head>
+<body>
+<th:block th:include="/fragments/main"></th:block>
+<th:block th:include="/fragments/sort"></th:block>
+<div>
+    <div>
+        <h2 th:if="${comps eq null or comps.empty}">There are no more comps in the menu!</h2>
+        <div th:if="${comps ne null}">
+            <table width="100%" border="1" cellpadding="4" cellspacing="0">
+                <caption>Comps</caption>
+                <thead>
+                <tr>
+                    <th>name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${comps}">
+                    <td th:text="${item.name}"></td>
+                </tr>
+                <tr th:each="item : ${comps}">
+                    <td th:text="${item.roll}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a th:if="${#request.userPrincipal != null}" href="/new_comp">Add comp</a></p>
+    </div>
+</div>
+
+
+</body>
+
+</html>

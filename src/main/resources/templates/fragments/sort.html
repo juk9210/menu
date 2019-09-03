@@ -1,0 +1,23 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     style="border: 1px solid;padding:7px;margin-bottom:20px;background: #DF0101;height:17px;border-radius:10px">
+
+    <a>Sort</a>
+    <a> | &nbsp;</a>
+
+
+    <a  th:href="@{/menu/sort/by_weight/up}">by weight ▲</a>
+    <a> | &nbsp;</a>
+    <a th:href="@{/menu/sort/by_weight/down}">by weight ▼</a>
+    <a> | &nbsp;</a>
+
+    <a th:href="@{/menu/sort/by_price/up}">by price ▲</a>
+    <a> | &nbsp;</a>
+    <a th:href="@{/menu/sort/by_price/down}">by price ▼</a>
+                          
+    <form style="position:relative;left:77%;bottom:120%" th:action="@{/menu/find/by_type}" method="get">
+        <input style="border-radius:5px;background-color:#CEF6EC;border:0px;" type="text" name="search"
+               th:value="${search}" class="form-control" />
+        <button style="background:#000000;color:#FFFFFF;font-weight:bolder;border:0px;border-radius:5px;" type="submit"
+                class="btn btn-success">Search by type</button>
+    </form>
+</div>

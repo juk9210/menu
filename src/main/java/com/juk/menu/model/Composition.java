@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 @Data
 @Table
@@ -14,6 +15,11 @@ public class Composition implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true,nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "roll_id", referencedColumnName = "id")
+    private Roll roll;
+
+    @Column(unique = true, nullable = false)
     private String name;
+
 }
