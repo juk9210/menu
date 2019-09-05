@@ -2,12 +2,12 @@ h1{
 padding: 10px;
  margin: 0;
 color:#8A0808;
-margin-left:100px;
 }
-h2{
-  font-size:130%
-  ;color:#FBFBEF;
+h2,h3{
+  font-size:150%;
+  color:#01DF01;
   font-weight:bolder;
+  font-family:"Georgia",serif;
 }
 a{
 color:#FFFFFF;
@@ -17,7 +17,7 @@ font-family:"Georgia",serif;
 table{
    text-align:center;
    width:80%;
-   border:2px solid #FACC2E;
+   border:2px solid green !important ;
    color: #FACC2E;
    font-weight:bolder;
    font-family:"Georgia",serif;

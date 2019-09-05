@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Sign in</title>
-    <link rel="stylesheet" href="main.css">
+    <link href="../static/main.css" th:href="@{/main.css}" rel="stylesheet" >
     <style type="text/css">
    body {
    margin: 0;
-   background:#151515 url(images/roll.jpg);
+   background:#151515 url(/images/roll.jpg);
    }
    #header {
     height: 60px;
@@ -17,17 +17,20 @@
     text-align:center;
     font-size:120%;
    }
-  </style>
+
+
+
+    </style>
 </head>
 <body>
-<div id="header"><h1>Menu of rolls</h1></div>
+<div id="header"><h1>BANZAI</h1></div>
 <th:block th:include="/fragments/main"></th:block>
 
 
 <!-- /sign_in?error=true -->
 <div th:if="${#request.getParameter('error') == 'true'}"
      style="color:red;margin:10px 0px;">
-    Login Failed!!!<br />
+    Login Failed!!!<br/>
     Reason :
     <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
           th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
@@ -36,21 +39,26 @@
 
 </div>
 
-<h3 style="font-size:130%;color:#FBFBEF;font-weight:bolder;">Enter user name and password:</h3>
+<h3 style="color: #FACC2E;background:#000000;border:2px solid #FACC2E;border-radius:5px;width:30%;
+      padding:5px;position:relative;left:35%;">Enter user name and password:</h3>
 <form name='f' th:action="@{/j_spring_security_check}" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-        </tr>
-    </table>
+    <div style="position:relative;left:43%">
+        <div>
+            <a style="background-color: #01DF01;border: 1px solid #000000;padding:4px;border-radius:10px;
+                  position:relative;left:4.5%;bottom:5px;">User:</a>
+            <div><input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;" type='text' name='username'></div>
+        </div>
+        <div>
+            <a style="background-color: #01DF01;border: 1px solid #000000;padding:4px;border-radius:10px;
+             position:relative;left:3%;top:5px;">Password:</a>
+            <div><input style="position:relative;top:10px;border-radius:5px;background-color:#CEF6EC;
+            border:1px solid #000000" type='password' name='password'></div>
+        </div>
+        <div>
+            <input style="background-color: #01DF01;border: 1px solid #000000;padding:4px;border-radius:10px;
+           color:#FFFFFF;font-weight:bolder;position:relative;top:10px;left:4.5%;" name="submit" type="submit" value="ENTER"/>
+        </div>
+    </div>
 </form>
 <br>
 </body>

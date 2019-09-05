@@ -1,8 +1,7 @@
 package com.juk.menu.controller;
 
-import com.juk.menu.model.Composition;
 import com.juk.menu.model.Roll;
-import com.juk.menu.repository.CompositionRepository;
+import com.juk.menu.repository.SetRepository;
 import com.juk.menu.repository.RollRepository;
 import com.juk.menu.utils.WebUtils;
 import org.springframework.security.core.Authentication;
@@ -16,20 +15,28 @@ import javax.validation.Valid;
 import java.beans.Transient;
 import java.security.Principal;
 
+/**
+ * Создаём класс-контроллер,в котором будем
+ * @author Shakhov Yevhen
+ */
+
 @Controller
 public class MainController {
     private final RollRepository rollRepository;
-    private final CompositionRepository compositionRepository;
+    private final SetRepository setRepository;
 
-    public MainController(RollRepository rollRepository, CompositionRepository compositionRepository) {
+    public MainController(RollRepository rollRepository, SetRepository setRepository) {
         this.rollRepository = rollRepository;
-        this.compositionRepository = compositionRepository;
+        this.setRepository = setRepository;
     }
 
     @GetMapping({"/", "welcome"})
     public String welcomePage(Model model) {
         model.addAttribute( "title", "Welcome" );
-        model.addAttribute( "message", "Welcome to our service  - \"Menu of rolls\"" );
+        model.addAttribute( "message", "Welcome to \"Banzai\".\n" +
+                "Orders are accapted from 10 a.m. to 10 p.m.\n" +
+                "Delivery is carried out within 1 hour from the time of  order. \n" +
+                "Is your birthday today? Get a 20% discount on your birthday" );
         return "welcomePage";
     }
 
@@ -70,7 +77,7 @@ public class MainController {
 
     @GetMapping("/menu")
     public String menuPage(Model model) {
-        model.addAttribute( "rolls", rollRepository.findAll());
+        model.addAttribute( "rolls", rollRepository.findAll() );
         return "menuPage";
     }
 
@@ -114,54 +121,37 @@ public class MainController {
     @GetMapping("/delete/{id}")
     public String deleteRoll(@PathVariable("id") long id, Model model) {
         rollRepository.deleteById( id );
+        model.addAttribute( "rolls", rollRepository.findAll() );
         return "menuPage";
     }
 
-        @GetMapping("/comp")
-    public String compPage(Model model) {
-        model.addAttribute( "comps", compositionRepository.findAll() );
-        return "compPage";
-    }
-
-    @GetMapping("/new_comp")
-    public String showCompSignForm(Model model) {
-        model.addAttribute( "compAdd", new Composition() );
-        return "add_compPage";
-    }
-
-    @PostMapping("/add_comp")
-    public String addComp(@Valid Composition composition, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add_compPage";
-        }
-        compositionRepository.save( composition );
-        Iterable<Composition> comps = compositionRepository.findAll();
-        model.addAttribute( "comps", comps );
-        return "compPage";
-    }
     @GetMapping("/menu/sort/by_weight/up")
     public String sortByWeightUpPage(Model model) {
         model.addAttribute( "rolls", rollRepository.findByOrderByWeightAsc() );
         return "menuPage";
     }
+
     @GetMapping("/menu/sort/by_weight/down")
     public String sortByWeightDownPage(Model model) {
         model.addAttribute( "rolls", rollRepository.findByOrderByWeightDesc() );
         return "menuPage";
     }
+
     @GetMapping("/menu/sort/by_price/up")
     public String sortByPriceUpPage(Model model) {
-        model.addAttribute( "rolls", rollRepository.findByOrderByPriceAsc());
+        model.addAttribute( "rolls", rollRepository.findByOrderByPriceAsc() );
         return "menuPage";
     }
+
     @GetMapping("/menu/sort/by_price/down")
     public String sortByPriceDownPage(Model model) {
         model.addAttribute( "rolls", rollRepository.findByOrderByPriceDesc() );
         return "menuPage";
     }
+
     @GetMapping("/menu/find/by_type")
-    public String sortByTypePage(@RequestParam(value="search",required = true) String query, Model model) {
-        model.addAttribute( "rolls", rollRepository.findByTypeOfRoll( query ));
+    public String sortByTypePage(@RequestParam(value = "search", required = true) String query, Model model) {
+        model.addAttribute( "rolls", rollRepository.findByTypeOfRoll( query ) );
         return "menuPage";
     }
 }

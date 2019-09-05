@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" href="main.css">
+    <link href="../static/main.css" th:href="@{/main.css}" rel="stylesheet" >
     <style type="text/css">
    body {
    margin: 0;
-   background:#151515 url(images/roll.jpg);
+   background:#151515 url(/images/roll.jpg);
    }
    #header {
     height: 60px;
@@ -20,8 +20,13 @@
   </style>
 </head>
 <body>
-<div id="header"><h1>Menu of rolls</h1></div>
+<div id="header"><h1>BANZAI</h1></div>
 <th:block th:include="/fragments/main"></th:block>
-<h2><span th:utext="${message}"></span></h2>
+<h1 style="text-align:center;position:relative; top:50px;color: #FACC2E;background:#000000;border:2px solid #FACC2E;
+    border-radius:30px;padding:15px;">
+    Welcome to "Banzai".<br>
+    Orders are accepted from 10 a.m. to 10 p.m.<br>
+    Delivery is carried out within 1 hour from the time of  order.<br>
+    Is your birthday today? Get a 20% discount on your birthday</h1>
 </body>
 </html>

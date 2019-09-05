@@ -11,12 +11,29 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
-@Configuration
+/**
+ * Делаем класс DbInitConfig для добавления начального пользователя
+ *
+ * @author Shakhov Yevhen
+ */
+
+@Configuration //указываем что класс является конфигурацией
 public class DbInitConfig {
+    /*
+   Создаём поля AppUserRepository и RoleRepository,UserRoleRepository чтобы можно было работать с ними в нашем сервисе.
+    И делаем их final для того чтобы нельзя было их изменять.
+    */
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
 
+    /**
+     * Создаём конструктор с нашими полями
+     *
+     * @param appUserRepository
+     * @param roleRepository
+     * @param userRoleRepository
+     */
     @Autowired
     public DbInitConfig(AppUserRepository appUserRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository) {
         this.appUserRepository = appUserRepository;
@@ -24,25 +41,25 @@ public class DbInitConfig {
         this.userRoleRepository = userRoleRepository;
     }
 
-    @EventListener
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        AppUser apu1 = new AppUser();
-        apu1.setUserId( 1L );
-        apu1.setUserName( "admin" );
-        apu1.setEncryptedPassword( "$2a$10$AJN2uPvuYfgLKhdZtVhKROGuk7l/Ug5.XqxNE20no9StG.mdPCTp2" );
-        apu1.setEnabled( true );
-        apu1 = appUserRepository.save( apu1 );
-
-        Role r1 = new Role();
-        r1.setRoleId( 1L );
-        r1.setRoleName( "ROLE_ADMIN" );
-        r1 = roleRepository.save( r1 );
-
-        UserRole ur1 = new UserRole();
-        ur1.setId( 1L );
-        ur1.setAppUser( apu1 );
-        ur1.setRole( r1 );
-        userRoleRepository.save( ur1 );
-
-    }
+//    @EventListener //помечаем метод onApplicationEvent что онбудет запускаться вместе с приложением
+//    public void onApplicationEvent(ContextRefreshedEvent event) {
+//        AppUser apu1 = new AppUser();
+//        apu1.setUserId( 1L );
+//        apu1.setUserName( "admin" );
+//        apu1.setEncryptedPassword( "$2a$10$AJN2uPvuYfgLKhdZtVhKROGuk7l/Ug5.XqxNE20no9StG.mdPCTp2" );
+//        apu1.setEnabled( true );
+//        apu1 = appUserRepository.save( apu1 );
+//
+//        Role r1 = new Role();
+//        r1.setRoleId( 1L );
+//        r1.setRoleName( "ROLE_ADMIN" );
+//        r1 = roleRepository.save( r1 );
+//
+//        UserRole ur1 = new UserRole();
+//        ur1.setId( 1L );
+//        ur1.setAppUser( apu1 );
+//        ur1.setRole( r1 );
+//        userRoleRepository.save( ur1 );
+//
+//    }
 }

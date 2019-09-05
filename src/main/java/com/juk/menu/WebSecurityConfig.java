@@ -10,17 +10,35 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Configuration
+/**
+ * Создаём класс WebSecurityConfig для настроек нашей безопасности
+ *
+ * @author Shakhov Yevhen
+ */
+
+@Configuration  //указываем что класс является конфигурацией
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * Создаём поле UserServiceImpl для автосвязывания с WebSecurityConfig
+     */
     @Autowired
     private UserServiceImpl userService;
 
+    /**
+     * Создаём бин
+     * @return
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService( userService ).passwordEncoder( passwordEncoder() );
@@ -30,12 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         //доступно для всех
-        http.authorizeRequests().antMatchers( "/", "welcome","/sign_in","/menu","/menu/sort/by_type",
-                "/menu/sort/by_weight/up","/menu/sort/by_weight/down","/menu/sort/by_price/up",
-                "/menu/sort/by_price/down").permitAll();
+        http.authorizeRequests().antMatchers( "/", "welcome", "/sign_in", "/menu", "/menu/sort/by_type",
+                "/menu/sort/by_weight/up", "/menu/sort/by_weight/down", "/menu/sort/by_price/up",
+                "/menu/sort/by_price/down" ).permitAll();
         //доступно для админа и пользователя
-        http.authorizeRequests().antMatchers("/sign_out","/new_roll","/add_roll","/edit/{id}",
-                "/update/{id}","/delete/{id}").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers( "/sign_out", "/new_roll", "/add_roll", "/edit/{id}",
+                "/update/{id}", "/delete/{id}" ).access( "hasAnyRole('ROLE_USER','ROLE_ADMIN')" );
         //доступно только для админа
         http.authorizeRequests().antMatchers( "/add_user" ).access( "hasRole('ROLE_ADMIN')" );
         // если нет прав (роли) для доступа к странице

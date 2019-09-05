@@ -15,7 +15,7 @@
     <a th:href="@{/menu/sort/by_price/down}">by price ▼</a>
                           
     <form style="position:relative;left:77%;bottom:120%" th:action="@{/menu/find/by_type}" method="get">
-        <input style="border-radius:5px;background-color:#CEF6EC;border:0px;" type="text" name="search"
+        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;" type="text" name="search"
                th:value="${search}" class="form-control" />
         <button style="background:#000000;color:#FFFFFF;font-weight:bolder;border:0px;border-radius:5px;" type="submit"
                 class="btn btn-success">Search by type</button>

@@ -8,16 +8,15 @@
 
     <a  th:href="@{/menu}">Menu</a>
 
-    <a> | &nbsp;</a>
+<!--    <a th:if="${#request.userPrincipal != null}"> | &nbsp;</a>-->
 
-    <a style="position:relative;left:82%;"  th:if="${#request.userPrincipal == null}" th:href="@{/sign_in}" >
-        Sign in</a>
-    <a th:if="${#request.userPrincipal != ROLE_ADMIN}" th:href="@{/add_user}">Add user</a>
-    <a th:if="${#request.userPrincipal != null}" > | &nbsp;</a>
+    <a style="position:relative;left:85%;"  th:if="${#request.userPrincipal == null}" th:href="@{/sign_in}" >Sign in</a>
+    <a style="position:relative;left:77%;" th:if="${#request.userPrincipal != ROLE_ADMIN}" th:href="@{/add_user}">Add user</a>
+    <a style="position:relative;left:77%;" th:if="${#request.userPrincipal != ROLE_ADMIN}" > | &nbsp;</a>
 
-    <a th:if="${#request.userPrincipal != null}" th:href="@{/sign_out}">Sign out</a>
+    <a style="position:relative;left:77%;" th:if="${#request.userPrincipal != null}" th:href="@{/sign_out}">Sign out</a>
 
-    <a th:if="${#request.userPrincipal != null}" th:href="@{/comp}">Composition</a>
+<!--    <a th:if="${#request.userPrincipal != null}" th:href="@{/comp}">Set</a>-->
 
 
 </div>

@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add roll</title>
-    <link rel="stylesheet" href="main.css">
+    <link href="../static/main.css" th:href="@{/main.css}" rel="stylesheet" >
     <style type="text/css">
    body {
    margin: 0;
-   background:#151515 url(images/roll.jpg);
+   background:#151515 url(/images/roll.jpg);
    }
    #header {
     height: 60px;
@@ -19,49 +19,63 @@
   </style>
 </head>
 <body>
-<div id="header"><h1>Menu of rolls</h1></div>
+<div id="header"><h1>BANZAI</h1></div>
 <th:block th:include="/fragments/main"></th:block>
 <div>
-    <h2>New roll</h2>
+    <h2 style="color: #FACC2E;background:#000000;border:2px solid #FACC2E;border-radius:5px;width:8%;padding:5px;
+      position:relative;left:3%;">New roll</h2>
     <div>
-        <div>
+        <div style="position:relative;left:3%">
             <form action="#" th:action="@{/add_roll}" th:object="${rollAdd}" method="post">
-                <div>
+                <div style="style=position:relative;left:5%;">
                     <div>
-                        <label for="name">Name</label>
-                        <input type="text" th:field="*{name}" id="name" placeholder="name">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="name">Name</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="text" th:field="*{name}" id="name" placeholder="name">
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                     </div>
-                    <div>
-                        <label for="typeOfRoll">Type of roll</label>
-                        <input type="text"  th:field="*{typeOfRoll}" id="typeOfRoll" placeholder="typeOfRoll">
+                    <div style="position:relative;top:10px;">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="typeOfRoll">Type of roll</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="text"  th:field="*{typeOfRoll}" id="typeOfRoll" placeholder="typeOfRoll">
                         <span th:if="${#fields.hasErrors('typeOfRoll')}" th:errors="*{typeOfRoll}"></span>
                     </div>
-                    <div>
-                        <label for="weight">Weight</label>
-                        <input type="number" step="5" th:field="*{weight}" id="weight" placeholder="weight">
+                    <div style="position:relative;top:20px;">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="weight">Weight</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="number" step="1" th:field="*{weight}" id="weight" placeholder="weight">
                         <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></span>
                     </div>
-                    <div>
-                        <label for="calorieContent">Calorie content</label>
-                        <input type="number" step="5" th:field="*{calorieContent}" id="calorieContent" placeholder="calorieContent">
+                    <div style="position:relative;top:30px;">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="calorieContent">Calorie content</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="number" step="1" th:field="*{calorieContent}" id="calorieContent" placeholder="calorieContent">
                         <span th:if="${#fields.hasErrors('calorieContent')}" th:errors="*{calorieContent}"></span>
                     </div>
-                    <div>
-                        <label for="compositions">Composition</label>
-                        <input type="text" th:field="*{compositions}" id="compositions" placeholder="compositions">
-                        <span th:if="${#fields.hasErrors('compositions')}" th:errors="*{compositions}"></span>
+                    <div style="position:relative;top:40px;">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="composition">Composition</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="text" th:field="*{composition}" id="composition" placeholder="composition">
+                        <span th:if="${#fields.hasErrors('composition')}" th:errors="*{composition}"></span>
                     </div>
-                    <div>
-                        <label for="price">Price</label>
-                        <input type="number" step="5" th:field="*{price}" id="price" placeholder="price">
+                    <div style="position:relative;top:50px;">
+                        <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="price">Price</label>
+                        <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                               type="number" step="1" th:field="*{price}" id="price" placeholder="price">
                         <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
                     </div>
                 </div>
-                <div>
+                <div style="position:relative;top:60px;">
                     <div>
                         <input style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
-                        border-radius:10px"type="submit" value="Add roll">
+                        border-radius:10px;color:#FFFFFF;font-weight:bolder;font-family:serif;"
+                        type="submit" value="Add roll">
                     </div>
                 </div>
             </form>
