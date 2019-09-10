@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * Переопределяем метод loadUserByUsername для загрузки роли пользователя по его имени
@@ -68,4 +71,9 @@ public class UserServiceImpl implements UserDetailsService {
         return new User( appUser.getUserName(), appUser.getEncryptedPassword(), grantList );
     }
 
+//    public void save(AppUser appUser) {
+//        appUser.setEncryptedPassword( bCryptPasswordEncoder.encode( appUser.getEncryptedPassword() ) );
+//
+//        appUserRepository.save( appUser );
+//    }
 }

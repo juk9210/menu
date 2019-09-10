@@ -22,7 +22,24 @@
 <div id="header"><h1>BANZAI</h1></div>
 <th:block th:include="/fragments/main"></th:block>
 
-<h2>Add user please!!!</h2>
+<form action="#" th:action="@{/add_user}" th:object="${userAdd}" method="post">
+    <div style="style=position:relative;left:5%;">
+        <div>
+            <label style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:5px;" for="userName">userName</label>
+            <input style="border-radius:5px;background-color:#CEF6EC;border:1px solid #000000;"
+                   type="text" th:field="*{userName}" id="userName" placeholder="userName">
+            <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+        </div>
+    </div>
+    <div style="position:relative;top:60px;">
+        <div>
+            <input style="background-color: #01DF01;border: 1px solid #000000;padding:4px;
+                        border-radius:10px;color:#FFFFFF;font-weight:bolder;font-family:serif;"
+                   type="submit" value="Add user">
+        </div>
+    </div>
+</form>
 
 
 </body>

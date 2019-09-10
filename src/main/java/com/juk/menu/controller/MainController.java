@@ -1,6 +1,8 @@
 package com.juk.menu.controller;
 
+import com.juk.menu.model.AppUser;
 import com.juk.menu.model.Roll;
+import com.juk.menu.repository.AppUserRepository;
 import com.juk.menu.repository.SetRepository;
 import com.juk.menu.repository.RollRepository;
 import com.juk.menu.utils.WebUtils;
@@ -24,10 +26,12 @@ import java.security.Principal;
 public class MainController {
     private final RollRepository rollRepository;
     private final SetRepository setRepository;
+    public final AppUserRepository appUserRepository;
 
-    public MainController(RollRepository rollRepository, SetRepository setRepository) {
+    public MainController(RollRepository rollRepository, SetRepository setRepository,AppUserRepository appUserRepository) {
         this.rollRepository = rollRepository;
         this.setRepository = setRepository;
+        this.appUserRepository=appUserRepository;
     }
 
     @GetMapping({"/", "welcome"})
@@ -61,7 +65,7 @@ public class MainController {
 
             model.addAttribute( "userInfo", userInfo );
 
-            String message = "Hi " + principal.getName() //
+            String message = "Hi " + principal.getName()
                     + "<br> You do not have permission to access this page!";
             model.addAttribute( "message", message );
 
@@ -70,9 +74,18 @@ public class MainController {
         return "403Page";
     }
 
-    @GetMapping("/add_user")
+    @GetMapping("/new_user")
     public String addUserPage(Model model) {
+        model.addAttribute( "userAdd",new AppUser() );
         return "add_userPage";
+    }
+    @PostMapping("/add_user")
+    public String addUser(@Valid AppUser appUser,BindingResult result,Model model){
+        if (result.hasErrors()){
+            return "add_userPage";
+        }
+        appUserRepository.save( appUser );
+        return "welcomePage";
     }
 
     @GetMapping("/menu")
