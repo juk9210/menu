@@ -34,6 +34,11 @@ public class AppUser implements Serializable {
     // колонкой в таблице и оно не может  быть пустым  и его длину.
     private String encryptedPassword;
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Column(name = "user_role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Column(length = 1, nullable = false)// указываем что это поле будет нашей
     // колонкой в таблице и оно не может  быть пустым  и его длину.
     private boolean enabled;

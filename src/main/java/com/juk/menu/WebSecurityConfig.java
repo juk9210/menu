@@ -1,6 +1,6 @@
 package com.juk.menu;
 
-import com.juk.menu.service.UserServiceImpl;
+import com.juk.menu.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * Создаём поле UserServiceImpl для автосвязывания с WebSecurityConfig
      */
     @Autowired
-    private UserServiceImpl userService;
+    private UserDetailsServiceImpl userService;
 
     /**
      * Создаём бин
