@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,13 +18,14 @@ import java.util.Optional;
 
 @Repository //указываем что это репозиторий для спринга
 @Transactional // помечаем класс для транзакций
-public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+public interface UserRepository extends JpaRepository<AppUser, Long> {
     /**
      * Создаём метод findUserAccount с помощью которого в дальнейшем будем искать пользователя по аккаунту
      *
      * @param userName
      * @return
      */
-    @Query("from AppUser a where a.userName = ?1")
-    Optional<AppUser> findUserAccount(String userName);
+    AppUser findByUserName(String userName);
+
+    List<String> getRoleNames(Long userId);
 }

@@ -1,10 +1,10 @@
 package com.juk.menu.service;
 
 
+import com.juk.menu.model.AppRole;
 import com.juk.menu.model.AppUser;
 
-import com.juk.menu.model.Role;
-import com.juk.menu.repository.AppUserRepository;
+import com.juk.menu.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,13 +25,12 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AppUserRepository appUserRepository;
+    private UserRepository userRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser appUser = this.appUserRepository.findUserAccount( userName )
-                .orElseThrow( RuntimeException::new );
+        AppUser appUser = this.userRepository.findByUserName( userName );
 
         if (appUser == null) {
             log.error( "User not found! " + userName );
@@ -40,15 +39,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         log.info( "Found User: " + appUser );
 
-//        // [ROLE_USER, ROLE_ADMIN,..]
-//        List<String> roleNames = this.appUserRepository.get;
 
+        List<String> roleNames = this.userRepository.getRoleNames( appUser.getUserId() );
 
-        List<GrantedAuthority> grantList = new ArrayList<>();
-        for (String role : appUser.getRole()){
-            GrantedAuthority authority = new SimpleGrantedAuthority(role);
-            grantList.add(authority);
+        List<GrantedAuthority> grantList = new ArrayList<>(  );
+        for (String role: roleNames){
+           GrantedAuthority authority =new SimpleGrantedAuthority( role );
+           grantList.add( authority );
         }
-        return new User( appUser.getUserName(),appUser.getEncryptedPassword(),grantList);
+        return new User( appUser.getUserName(),appUser.getEncryptedPassword(),grantList );
     }
 }

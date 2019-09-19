@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Создаём класс Role,который будет нашей таблицей в БД, в котором будут хранится имена наших пользователей с паролями
@@ -22,7 +23,7 @@ public class AppUser implements Serializable {
  */
     @Id   //указываем что это поле является ключем
     @GeneratedValue  //итератор для значения id
-    @Column(name = "user_id", nullable = false) // указываем что это поле будет нашей колонкой в таблице и оно не может
+    @Column(name = "id", nullable = false) // указываем что это поле будет нашей колонкой в таблице и оно не может
     // быть пустым.
     private Long userId;
 
@@ -34,14 +35,13 @@ public class AppUser implements Serializable {
     // колонкой в таблице и оно не может  быть пустым  и его длину.
     private String encryptedPassword;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @Column(name = "user_role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @Column(length = 1, nullable = false)// указываем что это поле будет нашей
     // колонкой в таблице и оно не может  быть пустым  и его длину.
     private boolean enabled;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "app_user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    private AppRole role;
 
 
 }
